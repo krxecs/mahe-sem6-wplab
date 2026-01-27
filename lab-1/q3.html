@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Share your Winter Vacation Videos</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em;
+      /* background-image: linear-gradient(
+        45deg,
+        #3455eb 5%,
+        #000000 10%,
+        #3455eb 15%,
+        #000000 20%,
+        #3455eb 25%,
+        #000000 30%,
+        #3455eb 35%,
+        #000000 40%,
+        #3455eb 45%,
+        #000000 50%,
+        #3455eb 55%,
+        #000000 60%,
+        #3455eb 65%,
+        #000000 70%,
+        #3455eb 75%,
+        #000000 80%,
+        #3455eb 85%,
+        #000000 90%,
+        #3455eb 95%,
+        #000000 100%
+      ); */
+      background-image: repeating-linear-gradient(
+        45deg,
+        #3455eb,
+        #3455eb 25px,
+        #000000 25px,
+        #000000 50px
+      )
+    }
+    header .header-name {
+      font-family: 'Z003', Courier, monospace;
+      color: white;
+    }
+    header .header-menu-icon {
+      color: white;
+    }
+    .container {
+      font-family: 'Z003', Courier, monospace;
+      color: white;
+      padding-left: 4.5em;
+      padding-top: 1.5em;
+      background-image: linear-gradient(
+        #4866ec 2%,
+        #ffffff
+      )
+    }
+  </style>
+  <body>
+    <header>
+      <div class="header-name"><h1>Share Your Travels</h1></div>
+      <div class="header-menu-icon">&#9776;</div>
+    </header>
+    <div class="container">
+      <h1>HTML5 Video</h1>
+      <video width="320" height="240" controls>
+        <source src="Week 1 Assignment Files/Media/file_example_MP4_1920_18MG.mp4" type="video/mp4" />
+      </video>
+      <video width="320" height="240" controls>
+        <source src="Week 1 Assignment Files/Media/217490.mp4" type="video/mp4" />
+      </video>
+      <video width="320" height="240" controls>
+        <source src="Week 1 Assignment Files/Media/171007-844433279.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </body>
+</html>

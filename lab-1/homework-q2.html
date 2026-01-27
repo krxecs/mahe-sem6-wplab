@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Population Table Using JS</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
+
+    table{
+      border-collapse: collapse;
+      border: 2px solid #333;
+      width: 550px;
+      text-align: center;
+    }
+
+    th, td{
+      border: 2px solid #333;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    th{
+      background: red;
+      color: black;
+      font-size: 20px;
+    }
+
+    .country{
+      background: #f8de99;
+      width: 150px;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    .year{
+      background: #95a9e5;
+      width: 200px;
+    }
+
+    .pop{
+      background: #a8cf8b;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th colspan="2">Population (in Crores)</th>
+      </tr>
+    </thead>
+
+    <tbody id="tableBody">
+      <!-- Rows will be generated using JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    // ✅ Array of JavaScript objects (data from Question 1)
+    const data = [
+      {
+        country: "INDIA",
+        records: [
+          { year: 1998, population: 85 },
+          { year: 1999, population: 90 },
+          { year: 2000, population: 100 }
+        ]
+      },
+      {
+        country: "USA",
+        records: [
+          { year: 1998, population: 30 },
+          { year: 1999, population: 35 },
+          { year: 2000, population: 40 }
+        ]
+      },
+      {
+        country: "UK",
+        records: [
+          { year: 1998, population: 25 },
+          { year: 1999, population: 30 },
+          { year: 2000, population: 35 }
+        ]
+      }
+    ];
+
+    const tableBody = document.getElementById("tableBody");
+
+    // ✅ Generate table rows using JavaScript
+    data.forEach(item => {
+      item.records.forEach((rec, index) => {
+        const tr = document.createElement("tr");
+
+        // Only add country cell once (rowspan = 3)
+        if(index === 0){
+          const countryTd = document.createElement("td");
+          countryTd.className = "country";
+          countryTd.rowSpan = item.records.length;
+          countryTd.textContent = item.country;
+          tr.appendChild(countryTd);
+        }
+
+        const yearTd = document.createElement("td");
+        yearTd.className = "year";
+        yearTd.textContent = rec.year;
+
+        const popTd = document.createElement("td");
+        popTd.className = "pop";
+        popTd.textContent = rec.population;
+
+        tr.appendChild(yearTd);
+        tr.appendChild(popTd);
+
+        tableBody.appendChild(tr);
+      });
+    });
+  </script>
+</body>
+</html>
