@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Layout Assignment</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom Styling for Attractiveness */
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    /* Card-like styling for sections */
+    .custom-panel {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      height: 100%;
+      transition: transform 0.2s ease;
+      border: 1px solid #e1e4e8;
+    }
+
+    .custom-panel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Top Section Specifics */
+    .top-section {
+      border-left: 6px solid #0d6efd; /* Bootstrap Primary Color */
+    }
+
+    /* Bottom Section Specifics */
+    .bottom-part-1 { border-top: 5px solid #198754; } /* Success Color */
+    .bottom-part-2 { border-top: 5px solid #ffc107; } /* Warning Color */
+    .bottom-part-3 { border-top: 5px solid #dc3545; } /* Danger Color */
+
+    h2, h4 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .badge-spacing {
+      margin-left: 10px;
+    }
+    
+    /* Ensure inputs look clean */
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- TOP PART (1 Full Width Column) -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="custom-panel top-section">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>User Dashboard</h2>
+            <span class="badge bg-primary rounded-pill">Status: Online</span>
+          </div>
+          
+          <p class="text-muted">Manage your global search preferences and view system alerts.</p>
+
+          <!-- Top Input Group: Search with Button -->
+          <label class="form-label fw-bold">Global Search</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Filter</span>
+            <input type="text" class="form-control" placeholder="Search keywords..." aria-label="Username">
+            <button class="btn btn-outline-primary" type="button" id="topSearchBtn">Search</button>
+          </div>
+
+          <!-- Top Button Group -->
+          <div class="d-flex justify-content-between align-items-center mt-4">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-secondary">Daily</button>
+              <button type="button" class="btn btn-secondary">Weekly</button>
+              <button type="button" class="btn btn-secondary">Monthly</button>
+            </div>
+            <button class="btn btn-primary position-relative">
+              Notifications
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                4
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM PART (Divided into 3 Columns) -->
+    <div class="row g-4">
+      
+      <!-- Bottom Part 1 -->
+      <div class="col-md-4">
+        <div class="custom-panel bottom-part-1">
+          <h4>Subscription</h4>
+          <p class="small text-muted">Join our mailing list for updates.</p>
+          
+          <!-- Input Group with Button Addon -->
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Email Address" aria-label="Email">
+            <button class="btn btn-success" type="button" id="subBtn">Join</button>
+          </div>
+
+          <hr>
+          <div class="d-grid gap-2">
+             <span class="badge bg-success p-2">Free Tier Active</span>
+             <button class="btn btn-outline-dark btn-sm">Upgrade Plan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Part 2 -->
+      <div class="col-md-4">
+        <div class="custom-panel bottom-part-2">
+          <h4>Quick Controls</h4>
+          <p class="small text-muted">Adjust your system parameters.</p>
+
+          <!-- Vertical Button Group -->
+          <label class="form-label fw-bold">Mode Selection</label>
+          <div class="btn-group-vertical w-100 mb-3" role="group" aria-label="Vertical button group">
+            <button type="button" class="btn btn-outline-dark">Read Mode</button>
+            <button type="button" class="btn btn-outline-dark">Edit Mode</button>
+            <button type="button" class="btn btn-outline-dark">Developer Mode</button>
+          </div>
+
+          <!-- Simple Input Group with Labels -->
+          <div class="input-group">
+            <span class="input-group-text">Vol</span>
+            <input type="text" class="form-control" placeholder="50">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Part 3 -->
+      <div class="col-md-4">
+        <div class="custom-panel bottom-part-3">
+          <h4>Security <span class="badge bg-warning text-dark float-end">Action Required</span></h4>
+          <p class="small text-muted">Verify your identity settings.</p>
+
+          <!-- Input Group with Checkbox -->
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Two-Factor Auth" readonly>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for following text input">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button" value="SMS Backup" readonly>
+          </div>
+
+          <button class="btn btn-danger w-100 mt-2" id="alertBtn">Lock Account</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- jQuery (Required for interaction logic requested) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // jQuery Interaction 1: Top Search Button
+      $("#topSearchBtn").click(function() {
+        let searchTerm = $(this).siblings("input").val();
+        if(searchTerm) {
+          alert("Searching for: " + searchTerm);
+        } else {
+          alert("Please enter a keyword first.");
+        }
+      });
+
+      // jQuery Interaction 2: Subscription Button
+      $("#subBtn").click(function() {
+        // Change button text and color on click
+        $(this).text("Sent!");
+        $(this).removeClass("btn-success").addClass("btn-secondary");
+        $(this).prop("disabled", true);
+      });
+
+      // jQuery Interaction 3: Button Group Active State
+      $(".btn-group .btn").click(function() {
+        $(".btn-group .btn").removeClass("active btn-dark").addClass("btn-secondary");
+        $(this).removeClass("btn-secondary").addClass("active btn-dark");
+      });
+
+      // jQuery Interaction 4: Danger Alert
+      $("#alertBtn").click(function() {
+        let confirmLock = confirm("Are you sure you want to lock the account?");
+        if(confirmLock) {
+          $(this).text("LOCKED");
+          $(".bottom-part-3").css("opacity", "0.5");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
