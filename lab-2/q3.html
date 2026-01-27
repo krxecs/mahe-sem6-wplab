@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Card Designer</title>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .wrapper {
+      width: 1000px;
+      max-width: 100%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    /* LEFT PANEL (controls) */
+    .controls {
+      background: #f6f4d3;
+      padding: 18px;
+      border-radius: 6px;
+    }
+
+    .controls label {
+      display: block;
+      font-weight: bold;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    select, input[type="number"], textarea {
+      width: 100%;
+      padding: 7px;
+      border: 1px solid #999;
+      border-radius: 3px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 110px;
+      resize: none;
+    }
+
+    .radio-group {
+      margin-top: 6px;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 14px;
+      padding: 9px 18px;
+      border: 1px solid #666;
+      background: #e6e6e6;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #d9d9d9;
+    }
+
+    /* RIGHT PANEL (card preview) */
+    .card {
+      height: 540px;
+      border: 8px double #555;
+      background: yellow;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 15px;
+      box-sizing: border-box;
+    }
+
+    #greetingPreview {
+      text-align: center;
+      font-size: 44px;
+      font-family: Verdana, sans-serif;
+      margin: 0;
+      padding: 10px 0 14px;
+      line-height: 1.1;
+      color: #000;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    #pictureBox {
+      margin-top: 35px;
+      width: 360px;
+      max-width: 90%;
+      height: 210px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 0 0 0 #000;
+    }
+
+    /* default cake picture (SVG responsive) */
+    .cake-svg {
+      width: 90%;
+      height: auto;
+      display: block;
+    }
+
+    /* mobile stacking */
+    @media (max-width: 900px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        height: 520px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="margin-bottom: 20px;">Birthday Card Designer</h2>
+
+  <div class="wrapper">
+    <!-- LEFT: CONTROLS -->
+    <div class="controls">
+      <label for="bgColor">Choose a background color:</label>
+      <select id="bgColor">
+        <option value="yellow" selected>Yellow</option>
+        <option value="lightblue">Light Blue</option>
+        <option value="lightpink">Light Pink</option>
+        <option value="lightgreen">Light Green</option>
+        <option value="white">White</option>
+        <option value="orange">Orange</option>
+      </select>
+
+      <label for="fontName">Choose a font:</label>
+      <select id="fontName">
+        <option value="Verdana" selected>Verdana</option>
+        <option value="Arial">Arial</option>
+        <option value="'Times New Roman'">Times New Roman</option>
+        <option value="'Courier New'">Courier New</option>
+        <option value="Georgia">Georgia</option>
+      </select>
+
+      <label for="fontSize">Specify a numeric font size:</label>
+      <input type="number" id="fontSize" value="44" min="10" max="80"/>
+
+      <label>Choose a border style:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="borderStyle" value="none"> None</label>
+        <label><input type="radio" name="borderStyle" value="double" checked> Double</label>
+        <label><input type="radio" name="borderStyle" value="solid"> Solid</label>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="addPicture" checked />
+        <span>Add the Default Picture</span>
+      </div>
+
+      <label for="greetingText">Enter the greeting text below:</label>
+      <textarea id="greetingText">Happy
+Birthday, and
+many more</textarea>
+
+      <button id="updateBtn">Update</button>
+    </div>
+
+    <!-- RIGHT: CARD -->
+    <div class="card" id="cardPreview">
+      <h1 id="greetingPreview">Happy
+Birthday, and
+many more</h1>
+
+      <div id="pictureBox">
+        <!-- Default picture inserted by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Default Cake SVG (no external image needed)
+    const cakeSVG = `
+      <svg class="cake-svg" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- flames -->
+        <g>
+          <path d="M155 60 C150 40, 175 40, 170 60 C165 80, 160 80, 155 60" fill="orange"/>
+          <path d="M200 60 C195 40, 220 40, 215 60 C210 80, 205 80, 200 60" fill="orange"/>
+          <path d="M245 60 C240 40, 265 40, 260 60 C255 80, 250 80, 245 60" fill="orange"/>
+          <path d="M290 60 C285 40, 310 40, 305 60 C300 80, 295 80, 290 60" fill="orange"/>
+        </g>
+
+        <!-- candles -->
+        <g stroke="black" stroke-width="4">
+          <line x1="162" y1="65" x2="162" y2="120"/>
+          <line x1="207" y1="65" x2="207" y2="120"/>
+          <line x1="252" y1="65" x2="252" y2="120"/>
+          <line x1="297" y1="65" x2="297" y2="120"/>
+        </g>
+
+        <!-- top frosting -->
+        <path d="M120 120
+                 C140 90, 360 90, 380 120
+                 C360 140, 340 140, 320 120
+                 C300 140, 280 140, 260 120
+                 C240 140, 220 140, 200 120
+                 C180 140, 160 140, 140 120
+                 C130 135, 125 135, 120 120"
+              fill="#ff2fa1" stroke="black" stroke-width="6"/>
+
+        <!-- cake body -->
+        <rect x="130" y="120" width="240" height="130" rx="10"
+              fill="white" stroke="black" stroke-width="6"/>
+
+        <!-- base curve -->
+        <path d="M120 250 C160 280, 340 280, 380 250"
+              fill="none" stroke="black" stroke-width="6"/>
+      </svg>
+    `;
+
+    function applyChanges() {
+      // Background
+      const bg = $("#bgColor").val();
+      $("#cardPreview").css("background", bg);
+
+      // Font
+      const font = $("#fontName").val();
+      $("#greetingPreview").css("font-family", font);
+
+      // Font size
+      let size = parseInt($("#fontSize").val(), 10);
+      if (isNaN(size) || size < 10) size = 10;
+      $("#greetingPreview").css("font-size", size + "px");
+
+      // Greeting text
+      const msg = $("#greetingText").val();
+      $("#greetingPreview").text(msg);
+
+      // Border style
+      const borderStyle = $("input[name='borderStyle']:checked").val();
+
+      if (borderStyle === "none") {
+        $("#cardPreview").css("border", "none");
+      } else if (borderStyle === "double") {
+        $("#cardPreview").css("border", "8px double #555");
+      } else if (borderStyle === "solid") {
+        $("#cardPreview").css("border", "8px solid #555");
+      }
+
+      // Picture checkbox
+      if ($("#addPicture").is(":checked")) {
+        $("#pictureBox").html(cakeSVG);
+      } else {
+        $("#pictureBox").html("");
+      }
+    }
+
+    // Button click
+    $("#updateBtn").on("click", function () {
+      applyChanges();
+    });
+
+    // Auto-update live (optional but nice)
+    $("#bgColor, #fontName, #fontSize, #greetingText, #addPicture, input[name='borderStyle']")
+      .on("change keyup", function () {
+        applyChanges();
+      });
+
+    // Load default preview
+    $(document).ready(function () {
+      applyChanges();
+    });
+  </script>
+
+</body>
+</html>

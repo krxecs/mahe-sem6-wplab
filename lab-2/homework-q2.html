@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bouncing Ball</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    #box {
+      width: 400px;
+      height: 250px;
+      border: 1px solid black;
+      position: relative;
+      overflow: hidden;
+    }
+    #ball {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: red;
+      position: absolute;
+      top: 0;
+      left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Bouncing Ball</h2>
+
+  <div id="box">
+    <div id="ball"></div>
+  </div>
+
+  <br>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+
+  <script>
+    $(document).ready(function () {
+      let running = false;
+
+      function bounce() {
+        if (!running) return;
+
+        $("#ball").animate({ top: "210px" }, 500, function () {
+          if (!running) return;
+
+          $("#ball").animate({ top: "0px" }, 500, function () {
+            bounce();
+          });
+        });
+      }
+
+      $("#start").click(function () {
+        if (running) return;
+        running = true;
+        bounce();
+      });
+
+      $("#stop").click(function () {
+        running = false;
+        $("#ball").stop(true);
+      });
+    });
+  </script>
+
+</body>
+</html>

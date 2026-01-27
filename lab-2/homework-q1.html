@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Produce Bill</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- CSS not required here -->
+</head>
+<body>
+
+  <h2>Bill Generator</h2>
+
+  Brand:
+  <select id="brand">
+    <option>HP</option>
+    <option>Nokia</option>
+    <option>Samsung</option>
+    <option>Motorola</option>
+    <option>Apple</option>
+  </select>
+
+  <br><br>
+
+  Items:
+  <input type="checkbox" id="mobile"> Mobile
+  <input type="checkbox" id="laptop"> Laptop
+
+  <br><br>
+
+  Quantity:
+  <input type="text" id="qty">
+
+  <br><br>
+
+  <button id="billBtn">Produce Bill</button>
+
+  <script>
+    $(document).ready(function () {
+      // Sample prices
+      const mobilePrice = 15000;
+      const laptopPrice = 50000;
+
+      $("#billBtn").click(function () {
+        let qty = parseInt($("#qty").val());
+
+        if (isNaN(qty) || qty <= 0) {
+          alert("Enter valid quantity!");
+          return;
+        }
+
+        let total = 0;
+
+        if ($("#mobile").is(":checked")) total += mobilePrice * qty;
+        if ($("#laptop").is(":checked")) total += laptopPrice * qty;
+
+        if (!$("#mobile").is(":checked") && !$("#laptop").is(":checked")) {
+          alert("Select at least one item!");
+          return;
+        }
+
+        alert("Total Amount = ₹" + total);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Table Animation</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #movable-container {
+            display: inline-block;
+            left: 0;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #d3d3d3;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Table & Image Animation</h1>
+        <button id="anim-btn">Move Left</button>
+        <button id="reset-btn">Reset</button>
+    </div>
+
+    <hr>
+
+    <div id="movable-container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Alice</td>
+                    <td>Engineer</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Bob</td>
+                    <td>Designer</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Charlie</td>
+                    <td>Manager</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <img src="./sample-img.svg"/>
+        <p>Sample Image</p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#anim-btn").click(function() {
+                $("#movable-container").animate({
+                    left: "-=300px"
+                }, 1000);
+            });
+
+            $("#reset-btn").click(function() {
+                $("#movable-container").animate({
+                    left: "0"
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

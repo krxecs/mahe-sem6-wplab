@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Calculator</h1>
+
+    <label for="num1">Number 1:</label>
+    <input type="text" id="num1">
+    <br>
+
+    <label for="num2">Number 2:</label>
+    <input type="text" id="num2">
+    <br>
+
+    <button class="calc-btn" data-op="add">+</button>
+    <button class="calc-btn" data-op="sub">-</button>
+    <button class="calc-btn" data-op="mul">*</button>
+    <button class="calc-btn" data-op="div">/</button>
+    <br>
+
+    <!-- Result Textbox -->
+    <label>Result:</label>
+    <input type="text" id="result" readonly>
+
+    <script>
+        $(document).ready(function() {
+            $(".calc-btn").click(function() {
+                // Get values
+                var n1 = parseFloat($("#num1").val());
+                var n2 = parseFloat($("#num2").val());
+                var op = $(this).data("op");
+                var res = 0;
+
+                if (isNaN(n1) || isNaN(n2)) {
+                    $("#result").val("Invalid Input");
+                    return;
+                }
+
+                switch (op) {
+                    case "add": res = n1 + n2; break;
+                    case "sub": res = n1 - n2; break;
+                    case "mul": res = n1 * n2; break;
+                    case "div": 
+                        if (n2 === 0) {
+                            $("#result").val("Cannot divide by zero");
+                            return;
+                        }
+                        res = n1 / n2; 
+                        break;
+                }
+
+                // Display Result
+                $("#result").val(res);
+            });
+        });
+    </script>
+</body>
+</html>
